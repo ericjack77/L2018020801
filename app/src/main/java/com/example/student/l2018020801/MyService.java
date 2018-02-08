@@ -18,6 +18,38 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("msg","this is onStartCommand");
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    for(int i=0;i<=20;i++) //關掉程式會重新再跑一次
+                    {
+                        Thread.sleep(1000);
+
+                        Log.d("msg","Delay:i="+i);
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+
+
+
+        /* 如果只寫這樣沒有多重執行緒，在程式中還是可以跑，但是一離開就不行了
+        try {
+            for(int i=0;i<=20;i++)
+                    {
+                        Thread.sleep(1000);
+                        Log.d("msg","Delay:i="+i);
+                    }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        */
         return super.onStartCommand(intent, flags, startId);
     }
 
